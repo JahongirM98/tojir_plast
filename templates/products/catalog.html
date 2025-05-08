@@ -1,0 +1,26 @@
+{% extends 'temp/../base.html' %}
+{% load static %}
+
+{% block title %}Каталог товаров | Точир Пласт{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Каталог товаров</h1>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 product-card">
+            <img src="{{ product.image.url }}" loading="lazy" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text"> Габариты: {{ product.length }} × {{ product.width }} × {{ product.height }} см</p>
+                <p class="card-text fw-bold">{{ product.price }} сомони</p>
+                <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Ничего не найдено по вашему запросу.</p>
+    {% endfor %}
+</div>
+{% endblock %}

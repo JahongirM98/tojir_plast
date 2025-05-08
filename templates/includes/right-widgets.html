@@ -1,0 +1,38 @@
+<!-- Погода -->
+<div class="card mb-3">
+    <div class="card-header">Погода на неделю</div>
+    <div class="card-body p-0">
+        <table class="table table-sm text-center mb-0" style="font-size: 14px;">
+            <thead class="table-light">
+            <tr>
+                <th>День</th>
+                <th>Днём</th>
+                <th>Ночью</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for day in weather_week %}
+                <tr>
+                    <td>{{ day.label }}</td>
+                    <td><i class="bi {{ day.day_icon }} text-warning"></i> {{ day.day_temp }}°</td>
+                    <td><i class="bi {{ day.night_icon }} text-secondary"></i> {{ day.night_temp }}°</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<!-- Календарь -->
+<div class="card">
+    <div class="card-header">Календарь</div>
+    <div class="card-body p-2">
+        <iframe
+                src="https://calendar.google.com/calendar/embed?src=ru.tajikistan%23holiday%40group.v.calendar.google.com&ctz=Asia%2FDushanbe&mode=MONTH&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0"
+                style="border: 0; width: 100%; height: 300px; overflow: hidden; font-size: 12px;" frameborder="0"
+                scrolling="no">
+        </iframe>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<h5>Поиск емкостей</h5>
+<form method="get" action="{% url 'catalog' %}" class="row g-3">
+
+    <!-- Поиск -->
+    <div class="col-12 mb-3">
+        <input type="text" name="q" class="form-control" placeholder="Поиск по названию или объему"
+               value="{{ request.GET.q }}">
+    </div>
+
+    <!-- Слои -->
+    <div class="col-12 mb-3">
+        <label class="form-label text-uppercase fw-bold text-blue">Слои</label>
+        <div class="form-check">
+            <input class="form-check-input" id="1-layer" type="checkbox" name="layers" value="1"
+                   {% if "1" in selected_layers %}checked{% endif %}>
+            <label class="form-check-label" for="1-layer">1-слойный</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" id="2-layer" type="checkbox" name="layers" value="2"
+                   {% if "2" in selected_layers %}checked{% endif %}>
+            <label class="form-check-label" for="2-layer">2-слойный</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" id="3-layer" type="checkbox" name="layers" value="3"
+                   {% if "3" in selected_layers %}checked{% endif %}>
+            <label class="form-check-label" for="3-layer">3-слойный</label>
+        </div>
+    </div>
+
+    <!-- Объемы -->
+    <div class="col-12 mb-3">
+        <label class="form-label text-uppercase fw-bold text-blue">Объем (л)</label>
+        {% for v in available_volumes %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="volumes" value="{{ v }}"
+                       id="volume-{{ v }}"
+                       {% if v|stringformat:"s" in selected_volumes %}checked{% endif %}>
+                <label class="form-check-label" for="volume-{{ v }}">{{ v }} л</label>
+            </div>
+        {% empty %}
+            <p class="text-muted">Объемы не найдены</p>
+        {% endfor %}
+    </div>
+
+    <!-- Формы -->
+    <div class="col-12">
+        <label class="form-label text-uppercase fw-bold text-blue">Форма бочки</label>
+        {% for s in available_form_type %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="form_type" value="{{ s }}"
+                       id="shape-{{ forloop.counter }}"
+                       {% if s in selected_form_types %}checked{% endif %}>
+                <label class="form-check-label" for="shape-{{ forloop.counter }}">{{ s }}</label>
+            </div>
+        {% empty %}
+            <p class="text-muted">Формы не найдены</p>
+        {% endfor %}
+    </div>
+
+    <!-- Кнопки -->
+    <div class="col-12 d-flex justify-content-between">
+        <a href="{% url 'catalog' %}" class="btn btn-secondary me-2 w-50 text-white">Очистить</a>
+        <button type="submit" class="btn btn-primary w-50">Найти</button>
+    </div>
+
+</form>

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная | Точир Пласт{% endblock %}
+
+{% block content %}
+
+    <!-- 🔵 Баннер -->
+    <!-- 🔵 Презентация -->
+    <div class="mb-4 p-5 text-white rounded"
+     style="background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+             url('{% static 'images/home/hero-bg.jpg' %}') center/cover no-repeat;
+            min-height: 450px;">
+        <h1 class="display-5 fw-bold mb-3">Пластиковые ёмкости от лидера рынка Таджикистана</h1>
+        <p class="lead">
+             Производим и поставляем пластмассовые ёмкости от 100 до 10 000 литров.
+                Лидируем на рынке Таджикистана по качеству, срокам и ассортименту.
+                Продажа оптом и в розницу — доставка по всей стране.
+        </p>
+        <a href="{% url 'catalog' %}" class="btn btn-light btn-lg mt-3">Смотреть каталог</a>
+    </div>
+
+
+    <!-- ✅ Преимущества -->
+    <div class="row text-center mb-5">
+        <div class="col-md-3">
+            <i class="bi bi-award fs-1 text-primary"></i>
+            <h5 class="mt-2">85% рынка</h5>
+            <p>Точир Пласт — крупнейший производитель в Таджикистане</p>
+        </div>
+        <div class="col-md-3">
+            <i class="bi bi-truck fs-1 text-primary"></i>
+            <h5 class="mt-2">Быстрая доставка</h5>
+            <p>В любой регион страны</p>
+        </div>
+        <div class="col-md-3">
+            <i class="bi bi-check-circle fs-1 text-primary"></i>
+            <h5 class="mt-2">Гарантия</h5>
+            <p>Контроль качества каждого изделия</p>
+        </div>
+        <div class="col-md-3">
+            <i class="bi bi-gear fs-1 text-primary"></i>
+            <h5 class="mt-2">Своё производство</h5>
+            <p>Никаких посредников — только мы</p>
+        </div>
+    </div>
+
+    <!-- ⭐ Популярные товары -->
+    <div class="mb-5">
+        <h2 class="mb-4">Популярные товары</h2>
+        <div class="row">
+            {% for product in popular_products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 product-card">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text fw-bold">{{ product.price }} сомони</p>
+                            <a href="{% url 'product_detail' product.pk %}"
+                               class="btn btn-outline-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Нет популярных товаров</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- ⭐ Сертификаты -->
+    <div class="mb-5">
+        <h2 class="mb-4">Сертификаты и награды</h2>
+        <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center mb-5">
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert1.jpg' %}" alt="Сертификат 1">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert2.jpg' %}" alt="Сертификат 2">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert3.jpg' %}" alt="Сертификат 3">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert4.jpg' %}" alt="Сертификат 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

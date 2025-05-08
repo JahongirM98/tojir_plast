@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная | Точир Пласт{% endblock %}
+
+{% block content %}
+
+    <!-- 🔟 Юбилейный баннер -->
+    <div class="mb-4 p-5 text-white rounded hero-banner"
+     style="background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+             url('{% static 'images/home/hero-bg.jpg' %}') center/cover no-repeat;
+            min-height: 450px;">
+
+        <!-- Текст слева -->
+        <div class="text-start" style="max-width: 600px;">
+            <h1 class="fw-bold mb-4" style="font-size: 2.5rem;">
+                10 ЛЕТ ЛИДЕРСТВА В ОТРАСЛИ
+            </h1>
+            <p class="lead mb-4">
+                Более 10 лет мы производим надёжные пластиковые ёмкости для воды, топлива, химикатов и удобрений.
+                Продукция компании «Точир Пласт» используется по всей стране.
+            </p>
+            <a href="{% url 'catalog' %}" class="btn btn-primary btn-lg">Смотреть каталог</a>
+        </div>
+
+    </div>
+
+
+    <!-- ⭐ О компании «Точир Пласт» -->
+    <div class="mb-5 p-5 text-white" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+            url('{% static 'images/home/about-bg.jpg' %}') center/cover no-repeat; background-size: cover;
+            border-radius: 2rem;">
+        <h2 class="mb-4">ООО «Точир Пласт»</h2>
+        <p style="font-size: 1.2rem; line-height: 1.4; text-align: justify;">
+            Наша компания является ведущим производитель пластмассовых ёмкостей в Таджикистане.
+            Мы создаём современные решения для хранения и перевозки воды, топлива, удобрений и других жидкостей.
+            Наша продукция сочетает в себе высокую прочность, лёгкость и надёжность, превосходя по характеристикам
+            аналоги из металла и стеклопластика.
+        </p>
+
+        <p class="d-none d-md-block" style="font-size: 1.2rem; line-height: 1.4; text-align: justify;">
+            Используя качественные свето- и термостабилизированные полимеры, мы гарантируем повышенную износостойкость
+            изделий.
+            При правильной эксплуатации срок службы наших ёмкостей превышает 50 лет, что подтверждено практикой клиентов
+            по всей стране.
+        </p>
+
+        <p class="d-none d-md-block" style="font-size: 1.2rem; line-height: 1.4; text-align: justify;">
+            В каталоге «Точир Пласт» представлены бочки и резервуары объёмом от 100 до 10 000 литров.
+            Мы предлагаем удобные условия покупки — оптом и в розницу, с возможностью самовывоза со склада или доставкой
+            в любой регион Таджикистана.
+        </p>
+
+        <h3 class="mt-5 mb-3">Где применяются наши изделия</h3>
+        <ul style="font-size: 1.1rem; line-height: 1.8;">
+            <li>Хранение питьевой воды в домах, офисах и на производстве.</li>
+            <li>Перевозка и хранение удобрений, дизельного топлива и технических жидкостей.</li>
+            <li>Организация автономных систем водоснабжения и канализации.</li>
+            <li>Создание мини-АЗС для сельского хозяйства и строительных площадок.</li>
+            <li>Складские и промышленные объекты.</li>
+        </ul>
+
+        <h3 class="mt-5 mb-3">Почему выбирают «Точир Пласт»</h3>
+        <ul style="font-size: 1.1rem; line-height: 1.8;">
+            <li>Долговечность продукции — более 50 лет службы.</li>
+            <li>Устойчивость к ударам, перепадам температур и ультрафиолету.</li>
+            <li>Экологически чистые и безопасные материалы.</li>
+            <li>Лёгкость транспортировки благодаря небольшому весу.</li>
+            <li>Простота ремонта и обслуживания изделий.</li>
+        </ul>
+
+    </div>
+
+
+
+
+    <!-- ⭐ Популярные товары -->
+    <div class="mb-5">
+        <h2 class="mb-4">ПОПУЛЯРНЫЕ МОДЕЛИ</h2>
+        <div class="row">
+            {% for product in popular_products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 product-card">
+                        <img src="{{ product.image.url }}" loading="lazy" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text fw-bold">{{ product.price }} сомони</p>
+                            <a href="{% url 'product_detail' product.pk %}"
+                               class="btn btn-outline-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Нет популярных товаров</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- ⭐ Преимущества в виде карточек -->
+    <div class="container mb-5">
+        <div class="row">
+
+            <!-- Карточка 1 -->
+            <div class="item col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                 data-aos-delay="0">
+                <div class="wrapper position-relative"
+                     style="background-image: url({% static 'images/home/icon-1.jpg' %});
+                             height: 300px;
+                             border-radius: 16px;
+                             background-size: cover;
+                             background-position: center;
+                             overflow: hidden;
+                             padding: 1.5rem;
+                             display: flex;
+                             flex-direction: column;
+                             justify-content: space-between;">
+
+                    <!-- Синий затемняющий слой -->
+                    <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                         style="background: rgba(0, 91, 187, 0.5); border-radius: 16px;">
+                    </div>
+
+                    <!-- Содержимое -->
+                    <div class="position-relative d-flex flex-column justify-content-between h-100" style="z-index: 2;">
+                        <!-- Заголовок и текст -->
+                        <div>
+                            <h2 class="item__title mb-4" style="font-size: 1.8rem; font-weight: 700; color: white;">
+                                Производство</h2>
+                            <div class="item__text" style="font-size: 1.1rem; color: white;">10 лет на рынке полимерных
+                                изделий
+                            </div>
+                        </div>
+                        <!-- Иконки -->
+                        <div class="item__footer mt-auto">
+                            <div class="row align-items-center">
+                                <div class="item__footer-icon col-6">
+                                    <img src="{% static 'images/home/icon-mini-1.png' %}" loading="lazy" alt="Иконка" width="70"
+                                         height="70">
+                                </div>
+                                <div class="item__footer-go col-6 text-end">
+                                    <i class="bi bi-arrow-right fs-1 text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Карточка 2 -->
+            <div class="item col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                 data-aos-delay="150">
+                <div class="wrapper position-relative"
+                     style="background-image: url({% static 'images/home/icon-1.jpg' %});
+                             height: 300px;
+                             border-radius: 16px;
+                             background-size: cover;
+                             background-position: center;
+                             overflow: hidden;
+                             padding: 1.5rem;
+                             display: flex;
+                             flex-direction: column;
+                             justify-content: space-between;">
+
+                    <!-- Синий затемняющий слой -->
+                    <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                         style="background: rgba(0, 91, 187, 0.5); border-radius: 16px;">
+                    </div>
+
+                    <!-- Содержимое -->
+                    <div class="position-relative d-flex flex-column justify-content-between h-100" style="z-index: 2;">
+                        <!-- Заголовок и текст -->
+                        <div>
+                            <h2 class="item__title mb-4" style="font-size: 1.8rem; font-weight: 700; color: white;">
+                                Доставка и оплата</h2>
+                            <div class="item__text" style="font-size: 1.1rem; color: white;">Широкая зона логистики и
+                                удобные условия
+                            </div>
+                        </div>
+                        <!-- Иконки -->
+                        <div class="item__footer mt-auto">
+                            <div class="row align-items-center">
+                                <div class="item__footer-icon col-6">
+                                    <img src="{% static 'images/home/icon-mini-2.png' %}" loading="lazy" alt="Иконка" width="70"
+                                         height="70">
+                                </div>
+                                <div class="item__footer-go col-6 text-end">
+                                    <i class="bi bi-arrow-right fs-1 text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="item col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                 data-aos-delay="300">
+                <div class="wrapper position-relative"
+                     style="background-image: url({% static 'images/home/icon-1.jpg' %});
+                             height: 300px;
+                             border-radius: 16px;
+                             background-size: cover;
+                             background-position: center;
+                             overflow: hidden;
+                             padding: 1.5rem;
+                             display: flex;
+                             flex-direction: column;
+                             justify-content: space-between;">
+
+                    <!-- Синий затемняющий слой -->
+                    <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                         style="background: rgba(0, 91, 187, 0.5); border-radius: 16px;">
+                    </div>
+
+                    <!-- Содержимое -->
+                    <div class="position-relative d-flex flex-column justify-content-between h-100" style="z-index: 2;">
+                        <!-- Заголовок и текст -->
+                        <div>
+                            <h2 class="item__title mb-4" style="font-size: 1.8rem; font-weight: 700; color: white;">
+                                Партнёрам</h2>
+                            <div class="item__text" style="font-size: 1.1rem; color: white;">Гибкие условия
+                                сотрудничества
+                            </div>
+                        </div>
+                        <!-- Иконки -->
+                        <div class="item__footer mt-auto">
+                            <div class="row align-items-center">
+                                <div class="item__footer-icon col-6">
+                                    <img src="{% static 'images/home/icon-mini-3.png' %}" loading="lazy" alt="Иконка" width="70"
+                                         height="70">
+                                </div>
+                                <div class="item__footer-go col-6 text-end">
+                                    <i class="bi bi-arrow-right fs-1 text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🔵 Преимущества после карточек -->
+    <div class="container my-5">
+        <div class="row text-center gy-4">
+
+            <!-- Преимущество 1 -->
+            <div class="col-md-4 aos-init" data-aos="fade-right">
+                <img src="{% static 'images/home/icon-drop-2.png' %}" loading="lazy" alt="Иконка" width="60" height="80" class="mb-3">
+                <h5 class="fw-bold">Изделия не имеют дефектов</h5>
+                <p>Отлаженная технология и контроль качества готового изделия</p>
+            </div>
+
+            <!-- Преимущество 2 -->
+            <div class="col-md-4 aos-init" data-aos="fade-up" data-aos-delay="150">
+                <img src="{% static 'images/home/icon-drop-2.png' %}" loading="lazy" alt="Иконка" width="60" height="80" class="mb-3">
+                <h5 class="fw-bold">Экологическая безопасность</h5>
+                <p>Используется пищевой полиэтилен первичной обработки</p>
+            </div>
+
+            <!-- Преимущество 3 -->
+            <div class="col-md-4 aos-init" data-aos="fade-left" data-aos-delay="300">
+                <img src="{% static 'images/home/icon-drop-2.png' %}" loading="lazy" alt="Иконка" width="60" height="80" class="mb-3">
+                <h5 class="fw-bold">Срок службы более 50 лет</h5>
+                <p>Состав материала и конструкция ёмкостей обеспечивают долгий срок службы</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ⭐ Сертификаты -->
+    <div class="mb-5">
+        <h2 class="mb-4">Сертификаты и награды</h2>
+        <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center mb-5">
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert1.jpg' %}" loading="lazy" alt="Сертификат 1">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert2.jpg' %}" loading="lazy" alt="Сертификат 2">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert3.jpg' %}" loading="lazy" alt="Сертификат 3">
+                </div>
+            </div>
+            <div class="col">
+                <div class="certificate-card">
+                    <img src="{% static 'images/certs/cert4.jpg' %}" loading="lazy" alt="Сертификат 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

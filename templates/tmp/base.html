@@ -1,0 +1,442 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Точир Пласт{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Основной фон */
+        body {
+            background: linear-gradient(to bottom, rgb(53 87 162), rgb(87, 169, 223)) no-repeat fixed;
+            background-size: 100vw 100vh;
+            min-height: 100vh;
+            color: rgb(53 87 162);
+        }
+
+        body {
+            overflow-x: hidden;
+            overflow-y: scroll !important;
+            padding-right: 0 !important;
+        }
+
+        body.offcanvas-backdrop {
+            padding-right: 0 !important;
+        }
+
+
+        /* Ссылки и навигация */
+        .navbar-brand, .nav-link {
+            color: rgb(53 87 162) !important;
+        }
+
+        /* Ховер по навигации */
+        .navbar-light .navbar-nav,
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #0288d1 !important;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: #0288d1;
+            border-color: #0288d1;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #01579b;
+            border-color: #01579b;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(2, 136, 209, 0.4);
+        }
+
+        /* Прилипающие боковые панели */
+        .sticky-sidebar {
+            position: sticky;
+            top: 1rem; /* отступ сверху */
+            max-height: calc(100vh - 2rem); /* ограничение по высоте окна */
+            overflow-y: auto; /* прокрутка, если не влезает */
+            scrollbar-width: thin;
+        }
+
+
+        /* Футер */
+        footer {
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            color: #01579b;
+        }
+
+        footer a {
+            text-decoration: none !important;
+        }
+
+
+        footer .btn-link {
+            color: rgb(53, 87, 162) !important;
+            font-weight: 500;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-right: 1rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        footer .btn-link:hover {
+            color: #0288d1 !important;
+            text-decoration: none;
+        }
+
+
+        /* Карточки и белые блоки */
+        .bg-white {
+            background-color: #ffffff !important;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 0 10px rgba(2, 136, 209, 0.1) !important;
+        }
+
+        .certificate-card {
+            width: 100%;
+            aspect-ratio: 215 / 300;
+            max-width: 215px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .certificate-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .lead {
+            font-size: 1.4rem; /* стандарт Bootstrap — 1.25rem */
+            line-height: 1.7;
+        }
+
+
+        @media (max-width: 768px) {
+
+            .custom-offcanvas {
+                width: 280px !important;
+                background-color: rgba(53, 87, 162, 0.8);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                border-left: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .offcanvas-link {
+                font-size: 1.2rem;
+                font-weight: 500;
+                color: white;
+                text-decoration: none;
+                padding: 0.5rem 0;
+                border-radius: 6px;
+                transition: background-color 0.2s ease-in-out, padding-left 0.2s ease;
+            }
+
+            .offcanvas-link:hover {
+                background-color: rgba(2, 136, 209, 0.1);
+                padding-left: 10px;
+                color: white;
+            }
+
+            .offcanvas .btn-close {
+                filter: invert(1) brightness(100); /* делает крестик белым */
+                opacity: 1;
+            }
+
+            .offcanvas-title {
+                color: #ffffff; /* белый текст */
+                font-size: 1.3rem;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+
+            /* Уменьшение логотипа и названия */
+            .navbar-brand img {
+                height: 60px !important;
+            }
+
+            .navbar-brand.fw-bold {
+                font-size: 1.4rem !important;
+            }
+
+            /* Карточки преимуществ — сделать высоту автоматической */
+            .item .wrapper {
+                height: auto !important;
+                padding: 1rem !important;
+            }
+
+            /* Карточки сертификатов — адаптивная ширина */
+            .certificate-card {
+                max-width: 100% !important;
+                aspect-ratio: auto;
+                height: auto;
+            }
+
+            /* Заголовки и шрифт */
+            h1, .fs-1 {
+                font-size: 1.8rem !important;
+            }
+
+            h2, .fs-2 {
+                font-size: 1.5rem !important;
+            }
+
+            h3, .fs-3 {
+                font-size: 1.3rem !important;
+            }
+
+            .lead {
+                font-size: 1.1rem !important;
+            }
+
+            /* Убираем фиксированную высоту блоков карточек */
+            .card.h-100 {
+                height: auto !important;
+            }
+
+            /* Отступы и поля */
+            .mb-5 {
+                margin-bottom: 2rem !important;
+            }
+
+            .p-5 {
+                padding: 2rem !important;
+            }
+
+            /* Уменьшаем размеры миниатюр в слайдерах */
+            #thumbnails img,
+            .img-thumbnail {
+                width: 80px !important;
+            }
+
+
+            /* Центрируем футер */
+            footer .row > div {
+                text-align: center !important;
+                margin-bottom: 1.5rem;
+            }
+
+            footer .col-md-3.d-flex {
+                align-items: center !important;
+            }
+
+            /* Убираем лишние отступы у ссылок */
+            footer .btn-link {
+                display: inline-block;
+                text-align: center;
+                width: 100%;
+            }
+
+            /* Кнопка "Заказать" — больше расстояния */
+            footer .btn.btn-primary {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 0.75rem 1rem;
+                margin-top: 1rem;
+            }
+
+            /* Иконки соцсетей — выравнивание и расстояние */
+            footer i.bi {
+                font-size: 1.8rem !important;
+                margin: 0 0.5rem;
+            }
+
+            footer .footer-center {
+                font-size: 0.9rem;
+                line-height: 1.3;
+                text-align: center;
+            }
+
+            .footer-center p {
+                margin-bottom: 0.3rem;
+                line-height: 1.4;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Хедер -->
+<header class="bg-light border-bottom py-3">
+    <div class="container-fluid">
+        <div class="row gx-3 align-items-center">
+            <!-- Левая пустая колонка -->
+            <div class="col-lg-2 d-none d-lg-block"></div>
+
+            <!-- Центральный контент хедера -->
+            <div class="col-lg-8">
+                <nav class="navbar navbar-light bg-light px-3 py-2">
+                    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                        <!-- Логотип + название -->
+                        <a class="navbar-brand fw-bold fs-3 d-flex align-items-center mb-0" href="{% url 'home' %}">
+                            Точир Пласт
+                            <img src="{% static 'images/logo_without.png' %}" alt="Логотип" style="height: 50px;"
+                                 class="ms-2">
+                        </a>
+
+                        <!-- Кнопка offcanvas — только на мобильных -->
+                        <div class="d-lg-none">
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasMenu">
+                                <i class="bi bi-list fs-2"></i>
+                            </button>
+
+                        </div>
+
+                        <!-- Меню — только на lg и выше -->
+                        <div class="d-none d-lg-flex">
+                            <ul class="navbar-nav flex-row gap-4">
+                                <li class="nav-item"><a class="nav-link fs-5" href="{% url 'home' %}">🏠 Главная</a></li>
+                                <li class="nav-item"><a class="nav-link fs-5" href="{% url 'catalog' %}">📦 Каталог</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link fs-5" href="{% url 'about' %}">🏢 О компании</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link fs-5" href="{% url 'contacts' %}">📞 Контакты</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+
+                <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="offcanvasMenu">
+                    <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title text-primary fw-bold">Меню</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body d-flex flex-column gap-3">
+                        <a class="offcanvas-link" href="{% url 'home' %}">🏠 Главная</a>
+                        <a class="offcanvas-link" href="{% url 'catalog' %}">📦 Каталог</a>
+                        <a class="offcanvas-link" href="{% url 'about' %}">🏢 О компании</a>
+                        <a class="offcanvas-link" href="{% url 'contacts' %}">📞 Контакты</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Правая пустая колонка -->
+            <div class="col-lg-2 d-none d-lg-block"></div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Контентная зона -->
+<div class="container-fluid mt-2 mb-4">
+    <div class="row gx-3">
+        <!-- Левая колонка -->
+        <div class="col-lg-2 d-none d-lg-block">
+            <div class="bg-white rounded shadow-sm p-3 sticky-sidebar">
+                {% include 'includes/left-sidebar.html' %}
+            </div>
+        </div>
+
+        <!-- Центральная колонка -->
+        <div class="col-lg-8">
+            <div class="p-4 bg-white rounded shadow-sm">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+        <!-- Правая колонка -->
+        <div class="col-lg-2 d-none d-lg-block">
+            <div class="sticky-sidebar">
+                {% include 'includes/right-widgets.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Футер -->
+<footer class="bg-light border-top py-4">
+    <div class="container-fluid">
+        <div class="row gx-3">
+            <!-- Левая пустая колонка -->
+            <div class="col-lg-2 d-none d-lg-block"></div>
+
+            <!-- Центральный контент футера -->
+            <div class="col-lg-8 px-4">
+                <div class="row">
+                    <!-- Левая часть -->
+                    <div class="col-md-3 d-flex flex-column align-items-start mb-3 mb-md-0">
+                        <a href="{% url 'home' %}" class="btn btn-link text-muted p-0 mb-1">Главная</a>
+                        <a href="{% url 'catalog' %}" class="btn btn-link text-muted p-0 mb-1">Каталог</a>
+                        <a href="{% url 'about' %}" class="btn btn-link text-muted p-0 mb-1">О компании</a>
+                        <a href="{% url 'contacts' %}" class="btn btn-link text-muted p-0">Контакты</a>
+                    </div>
+
+
+                    <!-- Центр -->
+                    <div class="col-md-6 text-center">
+                        <div class="fw-medium footer-center text-center">
+                            <p class="mb-1"><strong>ООО «Точир Пласт»</strong> © 2025. Все права защищены.</p>
+                            <p class="mb-1">Согдийская обл., р-н Б. Гафуров, ул. Вахдат, 19/1</p>
+                            <p class="mb-1">Телефон по Согдийской области: +992 92 605 80 80</p>
+                            <p class="mb-1">Телефон по РРП и Хатлонской области: +992 93 775 44 44</p>
+                        </div>
+                    </div>
+
+
+                    <!-- Правая часть -->
+                    <div class="col-md-3 text-md-end text-center">
+                        <a href="{% url 'catalog' %}" class="btn btn-primary btn-lg mb-3">Заказать</a><br>
+                        <a href="https://t.me/tojirplast" target="_blank">
+                            <i class="bi bi-telegram fs-2 text-primary me-2"></i>
+                        </a>
+                        <a href="https://wa.me/992926058080" target="_blank">
+                            <i class="bi bi-whatsapp fs-2 text-success me-2"></i>
+                        </a>
+                        <a href="https://instagram.com/tojirplast" target="_blank">
+                            <i class="bi bi-instagram fs-2" style="color:#C13584;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая пустая колонка -->
+            <div class="col-lg-2 d-none d-lg-block"></div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const offcanvasEl = document.getElementById('offcanvasMenu');
+    if (offcanvasEl) {
+        offcanvasEl.addEventListener('show.bs.offcanvas', () => {
+            document.body.style.paddingRight = '0px';
+        });
+        offcanvasEl.addEventListener('hidden.bs.offcanvas', () => {
+            document.body.style.paddingRight = '';
+        });
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+
+</body>
+</html>

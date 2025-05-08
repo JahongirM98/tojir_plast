@@ -1,0 +1,114 @@
+{% extends 'temp/../base.html' %}
+
+{% block title %}{{ product.name }} | Точир Пласт{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+
+            {% if images %}
+                <div id="productGallery" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for img in images %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ img.image.url }}" loading="lazy" class="d-block w-100 rounded shadow" alt="Фото товара">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productGallery"
+                            data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"
+                      style="filter: invert(29%) sepia(95%) saturate(3771%) hue-rotate(202deg) brightness(90%) contrast(101%);
+                           width: 3rem; height: 3rem;">
+                </span>2
+                        <span class="visually-hidden">Предыдущее</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productGallery"
+                            data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"
+                      style="filter: invert(29%) sepia(95%) saturate(3771%) hue-rotate(202deg) brightness(90%) contrast(101%);
+                           width: 3rem; height: 3rem;">
+                </span>
+                        <span class="visually-hidden">Следующее</span>
+                    </button>
+                </div>
+
+                <!-- Миниатюры под слайдером -->
+                <div id="thumbnails" class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                    {% for img in images %}
+                        <img
+                                src="{{ img.image.url }}"
+                                loading="lazy"
+                                class="img-thumbnail"
+                                style="width: 150px; height: auto; object-fit: contain; padding: 4px; background: white; border: 1px solid #dee2e6;"
+                                data-bs-target="#productGallery"
+                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                role="button"
+                                aria-label="Слайд {{ forloop.counter }}">
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-6">
+            <h2>{{ product.name }}</h2>
+            <p><strong>Объём:</strong> {{ product.volume }} л</p>
+            <p><strong>Слои:</strong> {{ product.get_layers_display }}</p>
+            <p><strong>Размеры (Д × Ш × В):</strong> {{ product.length }} × {{ product.width }} × {{ product.height }}
+                см</p>
+            <p><strong>Диаметр крышки:</strong> {{ product.diameter }} см</p>
+            <p><strong>Толщина стенок:</strong> {{ product.thickness }}</p>
+            <p><strong>Тип формы:</strong> {{ product.form_type }}</p>
+            <p class="fw-bold"><strong>Цена:</strong> {{ product.price }} сомони</p>
+            <p>{{ product.description }}</p>
+
+            <h4 class="mt-4 ">Оставить заявку</h4>
+            <form method="post" class="row g-2">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    {{ form.name }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.phone }}
+                </div>
+                <div class="col-md-12">
+                    {{ form.email }}
+                </div>
+                <div class="col-md-12">
+                    {{ form.message }}
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success w-100">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carouselEl = document.querySelector('#productGallery');
+        const thumbnails = document.querySelectorAll('#thumbnails img');
+
+        // Получаем или создаём экземпляр Bootstrap Carousel
+        let carousel = bootstrap.Carousel.getInstance(carouselEl);
+        if (!carousel) {
+            carousel = new bootstrap.Carousel(carouselEl);
+        }
+
+        // Навешиваем обработчики на миниатюры
+        thumbnails.forEach((thumb, index) => {
+            thumb.addEventListener('click', function () {
+                carousel.to(index);
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
