@@ -1,6 +1,6 @@
 # 🌐 Tochir Plast — Corporate Website for a Plastic Product Manufacturer
 
-**Tochir Plast LLC** is the leading manufacturer of plastic barrels and containers in Tajikistan.  
+**Tojir Plast LLC** is the leading manufacturer of plastic barrels and containers in Tajikistan.  
 This responsive corporate website was developed from scratch using Django. It includes a product catalog with advanced filtering, image galleries, order forms, and full mobile support.
 
 ## 🔗 Live Repository
